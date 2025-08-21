@@ -3,6 +3,8 @@ import React, { useState } from "react";
 export default function App() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingText, setEditingText] = useState("");
 
   const createTask = () => {
     if (task.trim() === "") return;
@@ -17,13 +19,32 @@ export default function App() {
   };
 
   const deleteTask = (index) => {
-    const newTasks = tasks.filter((_, i) => i !== index); // фильтруем без выбранной
+    const newTasks = tasks.filter((_, i) => i !== index);
     setTasks(newTasks);
+  };
+
+  const startEditing = (index) => {
+    setEditingIndex(index);
+    setEditingText(tasks[index].text);
+  };
+
+  const saveEdit = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].text = editingText;
+    setTasks(newTasks);
+    setEditingIndex(null);
+    setEditingText("");
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       createTask();
+    }
+  };
+
+  const handleEditKeyDown = (e, index) => {
+    if (e.key === "Enter") {
+      saveEdit(index);
     }
   };
 
@@ -48,15 +69,36 @@ export default function App() {
               onChange={() => completedTask(index)}
             />
 
-            <span
-              style={{
-                flex: 1,
-                textDecoration: t.completed ? "line-through" : "none",
-              }}
-            >
-              {t.text}
-            </span>
-            <button onClick={() => deleteTask(index)}>Удалить</button>
+            {editingIndex === index ? (
+              <input
+                type="text"
+                value={editingText}
+                onChange={(e) => setEditingText(e.target.value)}
+                onKeyDown={(e) => handleEditKeyDown(e, index)}
+                autoFocus
+              />
+            ) : (
+              <span
+                style={{
+                  flex: 1,
+                  textDecoration: t.completed ? "line-through" : "none",
+                }}
+              >
+                {t.text}
+              </span>
+            )}
+
+            {/* Кнопки */}
+            {editingIndex === index ? (
+              <button onClick={() => saveEdit(index)}>Сохранить</button>
+            ) : (
+              <>
+                <button onClick={() => startEditing(index)}>
+                  Редактировать
+                </button>
+                <button onClick={() => deleteTask(index)}>Удалить</button>
+              </>
+            )}
           </li>
         ))}
       </ul>
