@@ -16,6 +16,11 @@ export default function App() {
     setTasks(newTasks);
   };
 
+  const deleteTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index); // фильтруем без выбранной
+    setTasks(newTasks);
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       createTask();
@@ -36,18 +41,22 @@ export default function App() {
 
       <ul>
         {tasks.map((t, index) => (
-          <li
-            key={index}
-            style={{
-              textDecoration: t.completed ? "line-through" : "none",
-            }}
-          >
+          <li key={index}>
             <input
               type="checkbox"
               checked={t.completed}
               onChange={() => completedTask(index)}
             />
-            {t.text}
+
+            <span
+              style={{
+                flex: 1,
+                textDecoration: t.completed ? "line-through" : "none",
+              }}
+            >
+              {t.text}
+            </span>
+            <button onClick={() => deleteTask(index)}>Удалить</button>
           </li>
         ))}
       </ul>
