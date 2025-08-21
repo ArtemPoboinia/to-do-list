@@ -31,6 +31,7 @@ export default function App() {
   };
 
   const saveEdit = (index) => {
+    if (editingText.trim() === "") return;
     const newTasks = [...tasks];
     newTasks[index].text = editingText;
     setTasks(newTasks);
@@ -103,7 +104,12 @@ export default function App() {
                 <button onClick={() => startEditing(index)}>
                   Редактировать
                 </button>
-                <button className="btn__delete" onClick={() => deleteTask(index)}>Удалить</button>
+                <button
+                  className="btn__delete"
+                  onClick={() => deleteTask(index)}
+                >
+                  Удалить
+                </button>
               </>
             )}
           </li>
