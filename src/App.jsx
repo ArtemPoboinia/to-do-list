@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function App() {
   const [task, setTask] = useState("");
@@ -6,8 +6,14 @@ export default function App() {
 
   const createTask = () => {
     if (task.trim() === "") return;
-    setTasks([...tasks, task]);
+    setTasks([...tasks, { text: task, completed: false }]);
     setTask("");
+  };
+
+  const completedTask = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].completed = !newTasks[index].completed;
+    setTasks(newTasks);
   };
 
   return (
@@ -22,8 +28,20 @@ export default function App() {
       <button onClick={createTask}>Создать</button>
 
       <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>{task}</li>
+        {tasks.map((t, index) => (
+          <li
+            key={index}
+            style={{
+              textDecoration: t.completed ? "line-through" : "none",
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={t.completed}
+              onChange={() => completedTask(index)}
+            />
+            {t.text}
+          </li>
         ))}
       </ul>
     </div>
