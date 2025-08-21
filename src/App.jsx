@@ -16,12 +16,19 @@ export default function App() {
     setTasks(newTasks);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      createTask();
+    }
+  };
+
   return (
     <div>
       <input
         type="text"
         value={task}
         onChange={(e) => setTask(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder="Введи новую задачу"
       />
 
