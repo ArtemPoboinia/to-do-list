@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./App.css";
 
 export default function App() {
   const [task, setTask] = useState("");
@@ -6,7 +7,8 @@ export default function App() {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingText, setEditingText] = useState("");
 
-  const createTask = () => {
+  const createTask = (e) => {
+    e.preventDefault();
     if (task.trim() === "") return;
     setTasks([...tasks, { text: task, completed: false }]);
     setTask("");
@@ -49,16 +51,21 @@ export default function App() {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Введи новую задачу"
-      />
+    <div className="container">
+      <form className="header__form">
+        <input
+          className="header__input"
+          type="text"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Введи новую задачу"
+        />
 
-      <button onClick={createTask}>Создать</button>
+        <button className="header__btn" onClick={createTask}>
+          Создать
+        </button>
+      </form>
 
       <ul>
         {tasks.map((t, index) => (
@@ -96,7 +103,7 @@ export default function App() {
                 <button onClick={() => startEditing(index)}>
                   Редактировать
                 </button>
-                <button onClick={() => deleteTask(index)}>Удалить</button>
+                <button className="btn__delete" onClick={() => deleteTask(index)}>Удалить</button>
               </>
             )}
           </li>
