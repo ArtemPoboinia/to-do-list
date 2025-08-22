@@ -10,6 +10,7 @@ export default function App() {
   const newTaskRef = useRef(null);
   const editRef = useRef(null);
 
+  // Авто-рост textarea для новой задачи
   useEffect(() => {
     if (newTaskRef.current) {
       newTaskRef.current.style.height = "40px";
@@ -17,10 +18,12 @@ export default function App() {
     }
   }, [newTask]);
 
-  // При начале редактирования ставим курсор в конец
+  // При начале редактирования ставим курсор в конец и растягиваем под весь текст
   useEffect(() => {
-    if (editRef.current) {
+    if (editingIndex !== null && editRef.current) {
       const el = editRef.current;
+      el.style.height = "auto";
+      el.style.height = el.scrollHeight + "px";
       el.focus();
       el.setSelectionRange(el.value.length, el.value.length);
     }
@@ -110,15 +113,20 @@ export default function App() {
                 value={editingValue}
                 onChange={(e) => {
                   setEditingValue(e.target.value);
-                  e.target.style.height = "60px";
+                  e.target.style.height = "auto";
                   e.target.style.height = e.target.scrollHeight + "px";
                 }}
                 onKeyDown={(e) => handleEditTaskKey(e, index)}
-                autoFocus
                 rows={1}
               />
             ) : (
-              <span className="task-text">{task.text}</span>
+              <span
+                className={`task-text ${
+                  task.completed ? "task-completed" : ""
+                }`}
+              >
+                {task.text}
+              </span>
             )}
 
             <div className="task-actions">
