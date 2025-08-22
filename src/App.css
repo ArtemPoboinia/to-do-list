@@ -7,11 +7,12 @@
 }
 
 body {
-  background: #f4f6f8;
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 40px;
+  min-height: 100vh;
 }
 
 .app {
