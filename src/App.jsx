@@ -1,132 +1,140 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 
 export default function App() {
-  const [task, setTask] = useState("");
+  const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
-  const [editingText, setEditingText] = useState("");
+  const [editingValue, setEditingValue] = useState("");
 
-  const createTask = (e) => {
-    e.preventDefault();
-    if (task.trim() === "") return;
-    setTasks([...tasks, { text: task, completed: false }]);
-    setTask("");
+  const newTaskRef = useRef(null);
 
-    const textarea = document.querySelector(".header__textarea");
-    if (textarea) {
-      textarea.style.height = "32px";
+  useEffect(() => {
+    if (newTaskRef.current) {
+      newTaskRef.current.style.height = "32px";
+      newTaskRef.current.style.height = newTaskRef.current.scrollHeight + "px";
     }
+  }, [newTask]);
+
+  const addTask = (e) => {
+    e.preventDefault();
+    if (newTask.trim() === "") return;
+    setTasks([...tasks, { text: newTask, completed: false }]);
+    setNewTask("");
   };
 
-  const completedTask = (index) => {
-    const newTasks = [...tasks];
-    newTasks[index].completed = !newTasks[index].completed;
-    setTasks(newTasks);
+  const toggleTask = (index) => {
+    const updated = [...tasks];
+    updated[index].completed = !updated[index].completed;
+    setTasks(updated);
   };
 
   const deleteTask = (index) => {
-    const newTasks = tasks.filter((_, i) => i !== index);
-    setTasks(newTasks);
+    setTasks(tasks.filter((_, i) => i !== index));
   };
 
   const startEditing = (index) => {
     setEditingIndex(index);
-    setEditingText(tasks[index].text);
+    setEditingValue(tasks[index].text);
   };
 
-  const saveEdit = (index) => {
-    if (editingText.trim() === "") return;
-    const newTasks = [...tasks];
-    newTasks[index].text = editingText;
-    setTasks(newTasks);
+  const saveTask = (index) => {
+    if (editingValue.trim() === "") return;
+    const updated = [...tasks];
+    updated[index].text = editingValue;
+    setTasks(updated);
     setEditingIndex(null);
-    setEditingText("");
+    setEditingValue("");
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      createTask();
+  const handleNewTaskKey = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      addTask(e);
     }
   };
 
-  const handleEditKeyDown = (e, index) => {
-    if (e.key === "Enter") {
-      saveEdit(index);
+  const handleEditTaskKey = (e, index) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      saveTask(index);
     }
-  };
-
-  const handleTaskChange = (e) => {
-    setTask(e.target.value);
-    e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + "px";
   };
 
   return (
-    <div className="container">
-      <form className="header__form">
+    <div className="app">
+      <form className="task-form">
         <textarea
-          className="header__textarea"
-          value={task}
-          onChange={handleTaskChange}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault(); // запрет на перенос строки
-              createTask(e);
-            }
-          }}
-          placeholder="Введи новую задачу"
+          ref={newTaskRef}
+          className="task-input"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          onKeyDown={handleNewTaskKey}
+          placeholder="Введи новую задачу..."
+          rows={1}
         />
-
-        <button className="header__btn" onClick={createTask}>
-          Создать
+        <button className="btn btn-add" onClick={addTask}>
+          Добавить
         </button>
       </form>
 
-      <ul>
-        {tasks.map((t, index) => (
-          <li key={index}>
+      <ul className="task-list">
+        {tasks.map((task, index) => (
+          <li className="task-item" key={index}>
             <input
               type="checkbox"
-              checked={t.completed}
-              onChange={() => completedTask(index)}
+              checked={task.completed}
+              onChange={() => toggleTask(index)}
             />
+
             {editingIndex === index ? (
-              <input
-                type="text"
-                value={editingText}
-                onChange={(e) => setEditingText(e.target.value)}
-                onKeyDown={(e) => handleEditKeyDown(e, index)}
+              <textarea
+                className="task-edit"
+                value={editingValue}
+                onChange={(e) => {
+                  setEditingValue(e.target.value);
+                  e.target.style.height = "32px";
+                  e.target.style.height = e.target.scrollHeight + "px";
+                }}
+                onKeyDown={(e) => handleEditTaskKey(e, index)}
                 autoFocus
+                rows={1}
               />
             ) : (
               <span
-                className="text-task"
-                style={{
-                  flex: 1,
-                  textDecoration: t.completed ? "line-through" : "none",
-                }}
+                className={`task-text ${
+                  task.completed ? "task-completed" : ""
+                }`}
               >
-                {t.text}
+                {task.text}
               </span>
             )}
-            {editingIndex === index ? (
-              <button className="btn" onClick={() => saveEdit(index)}>
-                Сохранить
-              </button>
-            ) : (
-              <>
-                <button className="btn" onClick={() => startEditing(index)}>
-                  Редактировать
-                </button>
+
+            <div className="task-actions">
+              {editingIndex === index ? (
                 <button
-                  className="btn btn__delete"
-                  onClick={() => deleteTask(index)}
+                  className="btn btn-save"
+                  onClick={() => saveTask(index)}
                 >
-                  Удалить
+                  Сохранить
                 </button>
-              </>
-            )}
+              ) : (
+                <>
+                  <button
+                    className="btn btn-edit"
+                    onClick={() => startEditing(index)}
+                  >
+                    Редактировать
+                  </button>
+                  <button
+                    className="btn btn-delete"
+                    onClick={() => deleteTask(index)}
+                  >
+                    Удалить
+                  </button>
+                </>
+              )}
+            </div>
           </li>
         ))}
       </ul>

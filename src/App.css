@@ -2,89 +2,97 @@
   margin: 0;
   padding: 0;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
-.container {
+.app {
   width: 600px;
-  margin: 16px auto;
-  padding: 32px;
+  margin: 24px auto;
+  padding: 24px;
   border: 1px solid black;
   border-radius: 8px;
 }
 
-.header__form {
-  width: auto;
-  height: auto;
-  padding: 16px 8px;
-  border: 1px solid black;
+.task-form {
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
   align-items: center;
-  border-radius: 8px;
-}
-
-.header__textarea {
-  width: 100%;
-  height: 32px;
-  margin-right: 16px;
-  border: 1px solid black;
-  border-radius: 8px;
-  resize: none; /* убираем ручное изменение размера */
-  overflow-y: hidden; /* скрываем скролл */
-  min-height: 30px; /* минимальная высота */
-  max-height: 100px;
-}
-
-.header__input::placeholder {
-  padding-left: 8px;
-}
-
-.header__btn {
-  width: 100px;
-  height: 34px;
+  padding: 12px;
   border: 1px solid black;
   border-radius: 8px;
 }
 
-li {
-  list-style: none;
-  border: 1px solid black;
-  padding: 16px 8px;
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 8px;
-}
-
-li input[type="text"] {
+.task-input {
   flex: 1;
-  margin: 0 8px;
-  border-radius: 8px;
-
-  height: 32px;
-
-  border: 1px solid black;
-}
-
-.btn__delete {
-  margin-left: 8px;
-  border: 1px solid black;
-  border-radius: 8px;
-}
-
-.text-task {
-  margin-left: 8px;
-}
-
-.btn {
+  min-height: 32px;
+  max-height: 120px;
   padding: 6px 8px;
   border: 1px solid black;
   border-radius: 8px;
+  resize: none;
+  overflow-y: hidden;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: 1px solid black;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #f3f3f3;
+}
+
+.btn-add {
+  min-width: 100px;
+}
+
+.task-list {
+  margin-top: 16px;
+  padding: 0;
 }
 
 .task-item {
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
   align-items: center;
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.task-text {
+  flex: 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.task-edit {
+  flex: 1;
+  min-height: 32px;
+  max-height: 200px;
+  padding: 6px 8px;
+  border: 1px solid black;
+  border-radius: 8px;
+  resize: none;
+  overflow-y: hidden;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.btn-delete {
+  color: red;
 }
