@@ -34,7 +34,7 @@ body {
 .task-form {
   display: flex;
   gap: 12px;
-  align-items: stretch;
+  align-items: center;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
