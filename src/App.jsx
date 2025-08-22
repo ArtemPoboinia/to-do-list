@@ -12,8 +12,9 @@ export default function App() {
 
   useEffect(() => {
     if (newTaskRef.current) {
-      newTaskRef.current.style.height = "40px";
-      newTaskRef.current.style.height = newTaskRef.current.scrollHeight + "px";
+      const el = newTaskRef.current;
+      el.style.height = "40px";
+      el.style.height = el.scrollHeight + "px";
     }
   }, [newTask]);
 
