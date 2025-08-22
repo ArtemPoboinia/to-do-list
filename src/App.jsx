@@ -12,6 +12,11 @@ export default function App() {
     if (task.trim() === "") return;
     setTasks([...tasks, { text: task, completed: false }]);
     setTask("");
+
+    const textarea = document.querySelector(".header__textarea");
+    if (textarea) {
+      textarea.style.height = "32px";
+    }
   };
 
   const completedTask = (index) => {
@@ -51,14 +56,19 @@ export default function App() {
     }
   };
 
+  const handleTaskChange = (e) => {
+    setTask(e.target.value);
+    e.target.style.height = "auto";
+    e.target.style.height = e.target.scrollHeight + "px";
+  };
+
   return (
     <div className="container">
       <form className="header__form">
-        <input
-          className="header__input"
-          type="text"
+        <textarea
+          className="header__textarea"
           value={task}
-          onChange={(e) => setTask(e.target.value)}
+          onChange={handleTaskChange}
           onKeyDown={handleKeyDown}
           placeholder="Введи новую задачу"
         />
