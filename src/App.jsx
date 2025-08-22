@@ -76,7 +76,6 @@ export default function App() {
               checked={t.completed}
               onChange={() => completedTask(index)}
             />
-
             {editingIndex === index ? (
               <input
                 type="text"
@@ -87,6 +86,7 @@ export default function App() {
               />
             ) : (
               <span
+                className="text-task"
                 style={{
                   flex: 1,
                   textDecoration: t.completed ? "line-through" : "none",
@@ -95,17 +95,17 @@ export default function App() {
                 {t.text}
               </span>
             )}
-
-            {/* Кнопки */}
             {editingIndex === index ? (
-              <button onClick={() => saveEdit(index)}>Сохранить</button>
+              <button className="btn" onClick={() => saveEdit(index)}>
+                Сохранить
+              </button>
             ) : (
               <>
-                <button onClick={() => startEditing(index)}>
+                <button className="btn" onClick={() => startEditing(index)}>
                   Редактировать
                 </button>
                 <button
-                  className="btn__delete"
+                  className="btn btn__delete"
                   onClick={() => deleteTask(index)}
                 >
                   Удалить

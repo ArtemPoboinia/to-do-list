@@ -17,6 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 8px;
 }
 
 .header__input {
@@ -24,14 +25,18 @@
   height: 40px;
   margin-right: 16px;
   border: 1px solid black;
+  border-radius: 8px;
+}
+
+.header__input::placeholder {
+  padding-left: 8px;
 }
 
 .header__btn {
   width: 100px;
   height: 42px;
   border: 1px solid black;
-
-
+  border-radius: 8px;
 }
 
 li {
@@ -40,8 +45,35 @@ li {
   padding: 16px 8px;
   margin-top: 8px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+}
+
+li input[type="text"] {
+  flex: 1; /* редактируемое поле растягивается */
+  margin: 0 8px;
+  border: 1px solid black;
 }
 
 .btn__delete {
   margin-left: 8px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.text-task {
+  margin-left: 8px;
+}
+
+.btn {
+  padding: 6px 8px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
