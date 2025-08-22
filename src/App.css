@@ -20,7 +20,8 @@ body {
   background: #fff;
   padding: 32px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
 }
 
 .title {
@@ -28,6 +29,7 @@ body {
   margin-bottom: 20px;
   font-size: 28px;
   color: #333;
+  transition: 0.3s;
 }
 
 .task-form {
@@ -38,6 +40,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #fafafa;
+  transition: 0.3s;
 }
 
 .task-input {
@@ -50,6 +53,13 @@ body {
   resize: none;
   overflow-y: hidden;
   font-size: 16px;
+  transition: 0.2s;
+}
+
+.task-input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.3);
+  outline: none;
 }
 
 .btn {
@@ -62,6 +72,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn:hover {
+  transform: scale(1.05);
 }
 
 .btn-add {
@@ -86,7 +100,12 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #fff;
-  transition: 0.2s;
+  transition: 0.3s;
+}
+
+.task-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .task-item.done {
@@ -95,9 +114,15 @@ body {
 }
 
 .task-checkbox {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.task-checkbox:checked {
+  accent-color: #4caf50;
+  transform: scale(1.1);
 }
 
 .task-text {
@@ -107,6 +132,12 @@ body {
   font-size: 16px;
   display: flex;
   align-items: center;
+  transition: 0.2s;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: gray;
 }
 
 .task-edit {
@@ -119,6 +150,13 @@ body {
   resize: none;
   overflow-y: hidden;
   font-size: 16px;
+  transition: 0.2s;
+}
+
+.task-edit:focus {
+  border-color: #ffb300;
+  box-shadow: 0 0 6px rgba(255, 179, 0, 0.3);
+  outline: none;
 }
 
 .task-actions {

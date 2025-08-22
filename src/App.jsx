@@ -10,7 +10,6 @@ export default function App() {
   const newTaskRef = useRef(null);
   const editRef = useRef(null);
 
-  // Авто-рост textarea для новой задачи
   useEffect(() => {
     if (newTaskRef.current) {
       newTaskRef.current.style.height = "40px";
@@ -18,7 +17,6 @@ export default function App() {
     }
   }, [newTask]);
 
-  // При начале редактирования ставим курсор в конец и растягиваем под весь текст
   useEffect(() => {
     if (editingIndex !== null && editRef.current) {
       const el = editRef.current;
