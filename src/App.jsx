@@ -69,7 +69,12 @@ export default function App() {
           className="header__textarea"
           value={task}
           onChange={handleTaskChange}
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault(); // запрет на перенос строки
+              createTask(e);
+            }
+          }}
           placeholder="Введи новую задачу"
         />
 
