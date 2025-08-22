@@ -3,96 +3,150 @@
   padding: 0;
   font-size: 16px;
   box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
 }
 
 .app {
-  width: 600px;
-  margin: 24px auto;
-  padding: 24px;
-  border: 1px solid black;
-  border-radius: 8px;
+  width: 800px;
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
 }
 
 .task-form {
   display: flex;
-  gap: 8px;
-  align-items: center;
+  gap: 12px;
+  align-items: stretch;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  background: #fafafa;
 }
 
 .task-input {
   flex: 1;
-  min-height: 32px;
+  min-height: 40px;
   max-height: 120px;
-  padding: 6px 8px;
-  border: 1px solid black;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
   border-radius: 8px;
   resize: none;
   overflow-y: hidden;
+  font-size: 16px;
 }
 
 .btn {
-  padding: 6px 12px;
-  border: 1px solid black;
+  padding: 8px 14px;
+  border: none;
   border-radius: 8px;
-  background: white;
   cursor: pointer;
-}
-
-.btn:hover {
-  background: #f3f3f3;
+  transition: 0.2s;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-add {
-  min-width: 100px;
+  background: #4caf50;
+  color: white;
+}
+.btn-add:hover {
+  background: #43a047;
 }
 
 .task-list {
-  margin-top: 16px;
+  margin-top: 20px;
   padding: 0;
 }
 
 .task-item {
   display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-top: 8px;
-  padding: 12px;
-  border: 1px solid black;
+  gap: 12px;
+  align-items: center; /* центрируем чекбокс и кнопки */
+  margin-top: 12px;
+  padding: 16px;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  background: #fff;
+  transition: 0.2s;
+}
+
+.task-item.done {
+  background: #f0f9f0;
+  opacity: 0.9;
+}
+
+.task-checkbox {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
 }
 
 .task-text {
   flex: 1;
   white-space: pre-wrap;
   word-break: break-word;
-}
-
-.task-completed {
-  text-decoration: line-through;
-  color: gray;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
 }
 
 .task-edit {
   flex: 1;
-  min-height: 32px;
+  min-height: 60px;
   max-height: 200px;
-  padding: 6px 8px;
-  border: 1px solid black;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
   border-radius: 8px;
   resize: none;
   overflow-y: hidden;
+  font-size: 16px;
 }
 
 .task-actions {
   display: flex;
-  gap: 8px;
-  align-items: center;
+  gap: 6px;
+  align-items: center; /* центрируем кнопки */
   white-space: nowrap;
 }
 
+.btn-edit {
+  background: #1976d2;
+  color: white;
+}
+.btn-edit:hover {
+  background: #1565c0;
+}
+
+.btn-save {
+  background: #ffb300;
+  color: white;
+}
+.btn-save:hover {
+  background: #ffa000;
+}
+
 .btn-delete {
-  color: red;
+  background: #e53935;
+  color: white;
+}
+.btn-delete:hover {
+  background: #c62828;
 }

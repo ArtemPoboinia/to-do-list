@@ -8,13 +8,23 @@ export default function App() {
   const [editingValue, setEditingValue] = useState("");
 
   const newTaskRef = useRef(null);
+  const editRef = useRef(null);
 
   useEffect(() => {
     if (newTaskRef.current) {
-      newTaskRef.current.style.height = "32px";
+      newTaskRef.current.style.height = "40px";
       newTaskRef.current.style.height = newTaskRef.current.scrollHeight + "px";
     }
   }, [newTask]);
+
+  // При начале редактирования ставим курсор в конец
+  useEffect(() => {
+    if (editRef.current) {
+      const el = editRef.current;
+      el.focus();
+      el.setSelectionRange(el.value.length, el.value.length);
+    }
+  }, [editingIndex]);
 
   const addTask = (e) => {
     e.preventDefault();
@@ -63,6 +73,8 @@ export default function App() {
 
   return (
     <div className="app">
+      <h1 className="title">📝 Список задач</h1>
+
       <form className="task-form">
         <textarea
           ref={newTaskRef}
@@ -70,7 +82,7 @@ export default function App() {
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
           onKeyDown={handleNewTaskKey}
-          placeholder="Введи новую задачу..."
+          placeholder="Введите новую задачу..."
           rows={1}
         />
         <button className="btn btn-add" onClick={addTask}>
@@ -80,20 +92,25 @@ export default function App() {
 
       <ul className="task-list">
         {tasks.map((task, index) => (
-          <li className="task-item" key={index}>
+          <li
+            className={`task-item ${task.completed ? "done" : ""}`}
+            key={index}
+          >
             <input
               type="checkbox"
+              className="task-checkbox"
               checked={task.completed}
               onChange={() => toggleTask(index)}
             />
 
             {editingIndex === index ? (
               <textarea
+                ref={editRef}
                 className="task-edit"
                 value={editingValue}
                 onChange={(e) => {
                   setEditingValue(e.target.value);
-                  e.target.style.height = "32px";
+                  e.target.style.height = "60px";
                   e.target.style.height = e.target.scrollHeight + "px";
                 }}
                 onKeyDown={(e) => handleEditTaskKey(e, index)}
@@ -101,13 +118,7 @@ export default function App() {
                 rows={1}
               />
             ) : (
-              <span
-                className={`task-text ${
-                  task.completed ? "task-completed" : ""
-                }`}
-              >
-                {task.text}
-              </span>
+              <span className="task-text">{task.text}</span>
             )}
 
             <div className="task-actions">
@@ -116,7 +127,7 @@ export default function App() {
                   className="btn btn-save"
                   onClick={() => saveTask(index)}
                 >
-                  Сохранить
+                  💾
                 </button>
               ) : (
                 <>
@@ -124,13 +135,13 @@ export default function App() {
                     className="btn btn-edit"
                     onClick={() => startEditing(index)}
                   >
-                    Редактировать
+                    ✏️
                   </button>
                   <button
                     className="btn btn-delete"
                     onClick={() => deleteTask(index)}
                   >
-                    Удалить
+                    🗑️
                   </button>
                 </>
               )}
