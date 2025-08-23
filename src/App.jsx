@@ -1,6 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 
+function NewTask({ newTask, setNewTask, handleNewTaskKey, addTask, newTaskRef }) {
+  return (
+    <form className="task-form">
+      <textarea
+        ref={newTaskRef}
+        className="task-input"
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+        onKeyDown={handleNewTaskKey}
+        placeholder="Введите новую задачу..."
+        rows={1}
+      />
+      <button className="btn btn-add" onClick={addTask}>
+        Добавить
+      </button>
+    </form>
+  );
+}
+
 export default function App() {
   const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState([]);
@@ -77,20 +96,13 @@ export default function App() {
     <div className="app">
       <h1 className="title">📝 Список задач</h1>
 
-      <form className="task-form">
-        <textarea
-          ref={newTaskRef}
-          className="task-input"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          onKeyDown={handleNewTaskKey}
-          placeholder="Введите новую задачу..."
-          rows={1}
-        />
-        <button className="btn btn-add" onClick={addTask}>
-          Добавить
-        </button>
-      </form>
+      <NewTask
+        newTask={newTask}
+        setNewTask={setNewTask}
+        handleNewTaskKey={handleNewTaskKey}
+        addTask={addTask}
+        newTaskRef={newTaskRef}
+      />
 
       <ul className="task-list">
         {tasks.map((task, index) => (
