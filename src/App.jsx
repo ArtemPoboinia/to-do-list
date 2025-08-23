@@ -1,24 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
+import CreateNewTask from "./assets/components/CreateNewTask";
+import EditBtn from "./assets/components/EditBtn";
+import DeleteBtn from "./assets/components/DeleteBtn";
 import "./App.css";
-
-function NewTask({ newTask, setNewTask, handleNewTaskKey, addTask, newTaskRef }) {
-  return (
-    <form className="task-form">
-      <textarea
-        ref={newTaskRef}
-        className="task-input"
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-        onKeyDown={handleNewTaskKey}
-        placeholder="Введите новую задачу..."
-        rows={1}
-      />
-      <button className="btn btn-add" onClick={addTask}>
-        Добавить
-      </button>
-    </form>
-  );
-}
 
 export default function App() {
   const [newTask, setNewTask] = useState("");
@@ -96,7 +80,7 @@ export default function App() {
     <div className="app">
       <h1 className="title">📝 Список задач</h1>
 
-      <NewTask
+      <CreateNewTask
         newTask={newTask}
         setNewTask={setNewTask}
         handleNewTaskKey={handleNewTaskKey}
@@ -150,18 +134,8 @@ export default function App() {
                 </button>
               ) : (
                 <>
-                  <button
-                    className="btn btn-edit"
-                    onClick={() => startEditing(index)}
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    className="btn btn-delete"
-                    onClick={() => deleteTask(index)}
-                  >
-                    🗑️
-                  </button>
+                  <EditBtn startEditing={startEditing} index={index} />
+                  <DeleteBtn deleteTask={deleteTask} index={index} />
                 </>
               )}
             </div>
