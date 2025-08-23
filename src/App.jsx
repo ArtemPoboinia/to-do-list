@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import CreateNewTask from "./assets/components/CreateNewTask";
 import EditBtn from "./assets/components/EditBtn";
+import SaveBtn from "./assets/components/SaveBtn";
 import DeleteBtn from "./assets/components/DeleteBtn";
 import "./App.css";
 
@@ -126,12 +127,7 @@ export default function App() {
 
             <div className="task-actions">
               {editingIndex === index ? (
-                <button
-                  className="btn btn-save"
-                  onClick={() => saveTask(index)}
-                >
-                  💾
-                </button>
+                <SaveBtn saveTask={saveTask} index={index} />
               ) : (
                 <>
                   <EditBtn startEditing={startEditing} index={index} />
