@@ -127,7 +127,7 @@ body {
   display: block;
   white-space: pre-wrap;
   word-break: break-word;
-  text-align: justify;
+  text-align: start;
 }
 
 .task-text::after {
