@@ -1,16 +1,22 @@
-export default function CreateNewTask({ newTask, setNewTask, handleNewTaskKey, addTask, newTaskRef }) {
+export default function CreateNewTask({
+  newTask,
+  setNewTask,
+  handleNewTaskKey,
+  addTask,
+  newTaskRef,
+}) {
   return (
-    <form className="task-form">
+    <form onSubmit={addTask} className="task-form">
       <textarea
         ref={newTaskRef}
         className="task-input"
+        placeholder="Напиши задачу..."
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
         onKeyDown={handleNewTaskKey}
-        placeholder="Введите новую задачу..."
         rows={1}
       />
-      <button className="btn btn-add" onClick={addTask}>
+      <button type="submit" className="btn btn-add">
         Добавить
       </button>
     </form>

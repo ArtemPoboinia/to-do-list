@@ -90,8 +90,9 @@ body {
 
 .task-item {
   display: flex;
-  gap: 12px;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-top: 12px;
   padding: 16px;
   border: 1px solid #ddd;
@@ -110,6 +111,13 @@ body {
   opacity: 0.9;
 }
 
+.task-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
 .task-checkbox {
   width: 24px;
   height: 24px;
@@ -124,16 +132,11 @@ body {
 
 .task-text {
   flex: 1;
-  display: block;
+  line-height: 1.5;
+  padding: 4px 0;
   white-space: pre-wrap;
   word-break: break-word;
   text-align: start;
-}
-
-.task-text::after {
-  content: "";
-  display: inline-block;
-  width: 100%;
 }
 
 .task-completed {
@@ -161,8 +164,8 @@ body {
 
 .task-actions {
   display: flex;
-  gap: 6px;
   align-items: center;
+  gap: 6px;
   white-space: nowrap;
 }
 
