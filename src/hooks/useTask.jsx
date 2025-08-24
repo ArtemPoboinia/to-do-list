@@ -9,7 +9,6 @@ export function useTasks() {
   const newTaskRef = useRef(null);
   const editRef = useRef(null);
 
-  // Авто-рост textarea для новой задачи
   useEffect(() => {
     if (newTaskRef.current) {
       const el = newTaskRef.current;
@@ -18,7 +17,6 @@ export function useTasks() {
     }
   }, [newTask]);
 
-  // Авто-рост textarea при редактировании
   useEffect(() => {
     if (editingIndex !== null && editRef.current) {
       const el = editRef.current;
